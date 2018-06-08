@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}登录{% endblock %}
+<!-- 因为其他css中的数据对gradforms影响比较大所以这里不再添加额外的css文件 -->
+{% block head %}
+{{super()}}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='3rdparties/gridforms.css') }}">
+{% endblock %}
+
+{% block page_content %}
+
+  <div class="jh_div_align_h_center_v_gs col-md-4" >
+        {{ wtf.quick_form(form) }}
+
+      <p>忘记密码? <a href="{{ url_for('auth.password_reset_request') }}">重置密码</a>.
+      新用户? <a href="{{ url_for('auth.register') }}">注册成新用户</a>.</p>
+
+  </div>
+
+
+
+
+{% endblock %}
+
+{% block script %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='3rdparties/gridforms.js') }}"></script>
+{% endblock %}
+
+
+<!--
+
+<form class="grid-form" action="{{url_for('auth.login')}}" method="post">
+         {{ form.hidden_tag() }}
+        <fieldset>
+            <legend align="left">登录</legend>
+            <div data-row-span="1">
+                <div data-field-span="1" align="left">
+                    {{ form.email.label }} {{ form.email() }}
+                </div>
+            </div>
+
+            <div data-row-span="1" align="left">
+                <div data-field-span="1">
+                    {{ form.password.label }} {{ form.password() }}
+                </div>
+            </div>
+        </fieldset>
+
+         <div >
+             <div  style="font-size: 9px;display:inline;">
+                 {{form.remember_me()}}{{ form.remember_me.label }}
+             </div>
+
+             <div  style="font-size: 9px;display:inline;float:right">
+                 {{form.submit()}}
+             </div>
+         </div>
+
+    </form>
+    <br>
+    <p style="font-size: 9px;">
+        忘记密码? <a href="{{ url_for('auth.password_reset_request') }}">重置密码</a>.&nbsp;&nbsp;
+        新用户? <a href="{{ url_for('auth.register') }}">注册成新用户</a>.
+    </p>
+
+-->

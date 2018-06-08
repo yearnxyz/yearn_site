@@ -1,0 +1,17 @@
+{% extends "base_dsp.html" %}
+
+{% block infos %}
+    <h2>Registration Information</h2>
+    <ul class="simple">
+        <li>用户名：{{user.username}}</li>
+        <li>注册时间：{{ moment(user.member_since).format('YYYY-MM-DD HH:mm:ss') }}</li>
+        <li>邮箱地址：{{user.email}}</li>
+        <li>上次登录时间：{{ moment(user.last_seen).fromNow()}} </li>
+    </ul>
+
+    {% if user.about_me %}
+        <h2>关于我</h2>
+        <p>{{ user.about_me }}</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+    <!-- 设置字体 -->
+    <style type="text/css">
+
+        @font-face{
+            font-family:'my_font_wzm';
+            src:url('{{ url_for('static', filename='fonts/SentyWEN-sp-tr-me.ttf') }}') format('truetype');
+        }
+        .zhixingheyi{content: '\e605';font-size: 69px; font-family:'my_font_wzm';}
+    </style>
+
+{% endblock %}
+
+{% block page_content %}
+
+<!-- 背景 的配置参考 https://github.com/tipsy/bubbly-bg -->
+<script src="{{ url_for('static', filename='3rdparties/bubbly-bg.js') }}"></script>
+<script>
+    bubbly({
+        colorStart: "#fff4e6",
+        colorStop: "#ffe9e4",
+        blur: 1,
+        compose: "source-over",
+        bubbleFunc: () => `hsla(${Math.random() * 50}, 100%, 50%, .3)`
+    });
+</script>
+<!-- ~背景 -->
+
+
+<div class="jh_div_align_h_center_v_gs">
+    <span class="zhixingheyi">知行合一</span>
+    <br>
+    <div align="center">
+        <ul style="margin: 0; padding: 0; list-style: none;">
+            <li style="display: inline; margin: 0; padding: 0;">
+                <a href="{{url_for('main.home',user_name='jiahu')}}"><font face="my_font_wzm" size="3px">登录</font></a>
+            </li>
+
+            <li style="display: inline; margin: 0; padding: 0;">
+                <a href="/blogs/jiahu"><font face="my_font_wzm" size="3px">匿名用户</font></a>
+            </li>
+        </ul>
+    </div>
+
+</div>
+
+<footer class="footer navbar-fixed-bottom ">
+    <div class="container text-info" align="center">
+        <a style='color:gray' href="">沪ICP备******号</a>
+        <a style='color:gray'
+           href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11000002000001"
+           target="_blank" >
+            <img src="{{ url_for('static', filename='imgs/ghs.png') }}"> 沪公网安备******号
+        </a>
+
+    </div>
+    <br>
+</footer>
+
+{% endblock %}
+<!-- ~ block page_content -->
