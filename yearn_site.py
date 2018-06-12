@@ -1,7 +1,12 @@
-import os
+import os,sys
 from flask_migrate import Migrate
 from app import create_app, db
 from app.models import User, Follow, Role, Permission, Post, Comment
+from tornado.wsgi import WSGIContainer
+from tornado.httpserver import HTTPServer
+from tornado.web import FallbackHandler, RequestHandler, Application,StaticFileHandler
+from tornado.ioloop import IOLoop
+
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 migrate = Migrate(app, db)
@@ -30,4 +35,10 @@ if __name__ == '__main__':
     # 如果要创建同名新表，最简单的方法是使用 drop_all() 方法删除所有表再创建
     db.app = app
     db.create_all()
-    app.run(debug=True,host='0.0.0.0',port=80)
+    #使用tornado包裹flask app
+    tornado_wraped = WSGIContainer(app)
+    #设置tornado环境，例如静态文件的路径
+    application = Application([(r".*", FallbackHandler, dict(fallback=tornado_wraped)),], static_path = "./app/static") 
+    #启动程序
+    application.listen(80)
+    IOLoop.instance().start()
